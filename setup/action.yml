@@ -1,0 +1,20 @@
+name: Set up QEMU KVM Action
+description: 'Install and cache APT dependencies for QEMU KVM'
+author: EtchDroid, Davide Depau
+
+inputs:
+  video-record:
+    description:
+      Whether to install dependencies for video recording. Defaults to true,
+      disable to save time if you don't need video recording.
+    required: false
+    default: 'true'
+
+runs:
+  using: composite
+  steps:
+    - name: Install and cache APT dependencies
+      uses: awalsh128/cache-apt-pkgs-action@v1
+      with:
+        packages: |
+          qemu-system-x86 qemu-utils ovmf ${{ inputs.video-record == 'true' && 'x11-utils ffmpeg i3-wm qemu-system-gui qemu-system-modules-opengl' || '' }}

@@ -1,0 +1,9 @@
+repos:
+  - repo: local
+    hooks:
+      - id: bundle
+        name: bundle action
+        language: system
+        entry: npm run bundle
+        pass_filenames: false
+        always_run: true

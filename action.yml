@@ -1,0 +1,87 @@
+name: QEMU KVM Action
+description: 'Run QEMU KVM on GitHub Actions'
+author: EtchDroid, Davide Depau
+
+#branding:
+#  icon: heart
+#  color: red
+
+inputs:
+  qemu-executable:
+    description: Path to the QEMU executable
+    required: false
+    default: 'qemu-system-x86_64'
+  video-record:
+    description:
+      Whether to enable Xvfb and record a video. You still need to enable the
+      display output in the QEMU flags.
+    required: false
+    default: 'false'
+  video-output:
+    description: Path to the video output file
+    required: false
+    default: 'recording.mkv'
+  video-resolution:
+    description: Video recording resolution (virtual display resolution)
+    required: false
+    default: '1280x800'
+  xbfb-screen:
+    description: Xvfb screen number
+    required: false
+    default: '0'
+  x11-display:
+    description: X11 display number
+    required: false
+    default: ':95'
+  cpu:
+    description:
+      Select CPU (run `qemu-system-x86_64 -cpu help` to see available CPUs)
+    required: false
+    default: 'host'
+  enable-kvm:
+    description: Whether to enable KVM
+    required: false
+    default: 'true'
+  smp:
+    description: Number of CPUs
+    required: false
+    default: '4'
+  memory:
+    description: Memory size in MB
+    required: false
+    default: '4096'
+  kernel:
+    description: Path to kernel image to boot, if booting a kernel directly
+    required: false
+    default: ''
+  initrd:
+    description: Path to initrd image to boot, if booting a kernel directly
+    required: false
+    default: ''
+  cmdline:
+    description: Kernel command line arguments, if booting a kernel directly
+    required: false
+    default: ''
+  flags:
+    description: Additional flags to pass to QEMU, newline-separated
+    required: false
+    default: ''
+
+outputs:
+  run-id:
+    description: The ID of the run
+  ffmpeg-pid:
+    description: The PID of the ffmpeg process, if video recording is enabled
+  xvfb-pid:
+    description: The PID of the Xvfb process, if video recording is enabled
+  qemu-pid:
+    description: The PID of the QEMU process
+  i3-pid:
+    description: The PID of the i3 process, if video recording is enabled
+  video-output:
+    description: The path to the video output file
+
+runs:
+  using: node20
+  main: dist/start.js
+  post: dist/stop.js

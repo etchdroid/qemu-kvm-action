@@ -1,0 +1,12 @@
+name: Stop QEMU KVM Action
+description: 'Stop QEMU KVM on GitHub Actions'
+author: EtchDroid, Davide Depau
+
+inputs:
+  run-id:
+    description: The run ID of the QEMU KVM Action to stop
+    required: true
+
+runs:
+  using: 'node20'
+  main: '../dist/stop.js'

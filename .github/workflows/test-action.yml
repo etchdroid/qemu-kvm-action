@@ -1,0 +1,50 @@
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: ./setup
+
+      - name: Install NASM
+        uses: awalsh128/cache-apt-pkgs-action@v1
+        with:
+          packages: nasm
+
+      - name: Prepare Boot-Man demo
+        run: |
+          git clone https://github.com/guyhill/Boot-Man
+          cd Boot-Man
+          make
+
+      - name: Run QEMU
+        id: run-qemu
+        uses: ./
+        with:
+          video-record: true
+          flags: 'Boot-Man/boot-man.bin'
+
+      - name: Let the VM run for a few seconds
+        run: sleep 10
+
+      - name: Stop QEMU
+        uses: ./stop
+        with:
+          run-id: ${{ steps.run-qemu.outputs.run-id }}
+
+      - name: Upload video
+        uses: actions/upload-artifact@v4
+        with:
+          name: recording
+          path: ${{ steps.run-qemu.outputs.video-output }}
