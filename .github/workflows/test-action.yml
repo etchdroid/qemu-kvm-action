@@ -14,9 +14,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up QEMU
-        uses: ./setup
-
       - name: Install NASM
         uses: awalsh128/cache-apt-pkgs-action@v1
         with:
@@ -34,14 +31,7 @@ jobs:
         with:
           video-record: true
           flags: 'Boot-Man/boot-man.bin'
-
-      - name: Let the VM run for a few seconds
-        run: sleep 10
-
-      - name: Stop QEMU
-        uses: ./stop
-        with:
-          run-id: ${{ steps.run-qemu.outputs.run-id }}
+          run: sleep 10
 
       - name: Upload video
         uses: actions/upload-artifact@v4

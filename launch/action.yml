@@ -1,5 +1,5 @@
-name: Run with QEMU VM
-description: 'Run a command while a QEMU VM is running'
+name: Launch QEMU
+description: 'Launch a QEMU VM'
 author: EtchDroid, Davide Depau
 
 inputs:
@@ -62,64 +62,22 @@ inputs:
     description: Additional flags to pass to QEMU, newline-separated
     required: false
     default: ''
-  run:
-    description: Script to run in the VM
-    required: true
-  shell:
-    description: Shell to use to run the script
-    required: false
-    default: 'bash'
 
 outputs:
   run-id:
     description: The ID of the run
-    value: ${{ steps.main.outputs.run-id }}
   ffmpeg-pid:
     description: The PID of the ffmpeg process, if video recording is enabled
-    value: ${{ steps.main.outputs.ffmpeg-pid }}
   xvfb-pid:
     description: The PID of the Xvfb process, if video recording is enabled
-    value: ${{ steps.main.outputs.xvfb-pid }}
   qemu-pid:
     description: The PID of the QEMU process
-    value: ${{ steps.main.outputs.qemu-pid }}
   i3-pid:
     description: The PID of the i3 process, if video recording is enabled
-    value: ${{ steps.main.outputs.i3-pid }}
   video-output:
     description: The path to the video output file
-    value: ${{ steps.main.outputs.video-output }}
 
 runs:
-  using: composite
-  steps:
-    - name: Set up dependencies
-      uses: ./setup
-
-    - name: Launch QEMU
-      id: main
-      uses: ./launch/
-      with:
-        qemu-executable: ${{ inputs.qemu-executable }}
-        video-record: ${{ inputs.video-record }}
-        video-output: ${{ inputs.video-output }}
-        video-resolution: ${{ inputs.video-resolution }}
-        xbfb-screen: ${{ inputs.xbfb-screen }}
-        x11-display: ${{ inputs.x11-display }}
-        cpu: ${{ inputs.cpu }}
-        enable-kvm: ${{ inputs.enable-kvm }}
-        smp: ${{ inputs.smp }}
-        memory: ${{ inputs.memory }}
-        kernel: ${{ inputs.kernel }}
-        initrd: ${{ inputs.initrd }}
-        cmdline: ${{ inputs.cmdline }}
-        flags: ${{ inputs.flags }}
-
-    - name: Run script
-      shell: ${{ inputs.shell }}
-      run: ${{ inputs.run }}
-
-    - name: Stop QEMU
-      uses: ./stop/
-      with:
-        run-id: ${{ steps.main.outputs.run-id }}
+  using: node20
+  main: ../dist/start.js
+  post: ../dist/stop.js

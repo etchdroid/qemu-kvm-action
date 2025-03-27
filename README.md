@@ -69,8 +69,8 @@ need to perform some initial setup steps before you can develop your action.
 
 ## Update the Action Metadata
 
-The [`action.yml`](action.yml) file defines metadata about your action, such as
-input(s) and output(s). For details about this file, see
+The [`action.yml`](launch/action.yml) file defines metadata about your action,
+such as input(s) and output(s). For details about this file, see
 [Metadata syntax for GitHub Actions](https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions).
 
 When you copy this repository, update `action.yml` with the name, description,
