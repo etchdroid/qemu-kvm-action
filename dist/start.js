@@ -27907,6 +27907,8 @@ async function run() {
     const ffmpegArgs = [
       '-f',
       'x11grab',
+      '-draw_mouse',
+      '0',
       '-i',
       `${config.x11Display}.0`,
       '-framerate',
