@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install NASM
-        uses: awalsh128/cache-apt-pkgs-action@v1
+        uses: Eeems-Org/apt-cache-action@v1
         with:
           packages: nasm
 

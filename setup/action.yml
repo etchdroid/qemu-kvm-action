@@ -14,7 +14,7 @@ runs:
   using: composite
   steps:
     - name: Install and cache APT dependencies
-      uses: awalsh128/cache-apt-pkgs-action@v1
+      uses: Eeems-Org/apt-cache-action@v1
       with:
         packages: |
           qemu-system-x86 qemu-utils ovmf ${{ inputs.video-record == 'true' && 'x11-utils ffmpeg libblas3 i3-wm qemu-system-gui qemu-system-modules-opengl' || '' }}
