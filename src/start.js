@@ -20,7 +20,7 @@ const dependencyMap = {
     'qemu-system-modules-opengl'
   ],
   xdpyinfo: ['x11-utils'],
-  ffmpeg: ['ffmpeg'],
+  ffmpeg: ['ffmpeg', 'libblas3'],
   i3: ['i3-wm']
 }
 

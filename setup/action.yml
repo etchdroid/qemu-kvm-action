@@ -17,4 +17,4 @@ runs:
       uses: awalsh128/cache-apt-pkgs-action@v1
       with:
         packages: |
-          qemu-system-x86 qemu-utils ovmf ${{ inputs.video-record == 'true' && 'x11-utils ffmpeg i3-wm qemu-system-gui qemu-system-modules-opengl' || '' }}
+          qemu-system-x86 qemu-utils ovmf ${{ inputs.video-record == 'true' && 'x11-utils ffmpeg libblas3 i3-wm qemu-system-gui qemu-system-modules-opengl' || '' }}
