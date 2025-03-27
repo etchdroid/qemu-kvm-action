@@ -2,6 +2,10 @@ name: Run with QEMU VM
 description: 'Run a command while a QEMU VM is running'
 author: EtchDroid, Davide Depau
 
+branding:
+  icon: box
+  color: orange
+
 inputs:
   qemu-executable:
     description: Path to the QEMU executable
