@@ -96,9 +96,9 @@ runs:
     - name: Set up dependencies
       uses: ./setup
 
-    - name: Launch QEMU
+    - name: Start QEMU
       id: main
-      uses: ./launch/
+      uses: ./start/
       with:
         qemu-executable: ${{ inputs.qemu-executable }}
         video-record: ${{ inputs.video-record }}
