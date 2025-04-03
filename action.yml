@@ -130,5 +130,6 @@ runs:
 
     - name: Stop QEMU
       uses: ./qemu-kvm-action/stop/
+      if: always()
       with:
         run-id: ${{ steps.main.outputs.run-id }}
