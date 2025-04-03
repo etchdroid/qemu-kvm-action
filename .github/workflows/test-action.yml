@@ -14,10 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install NASM
-        uses: Eeems-Org/apt-cache-action@v1
-        with:
-          packages: nasm
+      - uses: ilammy/setup-nasm@v1
 
       - name: Prepare Boot-Man demo
         run: |
