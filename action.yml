@@ -97,12 +97,17 @@ outputs:
 runs:
   using: composite
   steps:
+    - name: Set up access to sibling actions
+      shell: bash
+      run: |
+        ln -sf "$(realpath "$GITHUB_ACTION_PATH")" ./qemu-kvm-action
+
     - name: Set up dependencies
-      uses: ./setup
+      uses: ./qemu-kvm-action/setup
 
     - name: Start QEMU
       id: main
-      uses: ./start/
+      uses: ./qemu-kvm-action/start/
       with:
         qemu-executable: ${{ inputs.qemu-executable }}
         video-record: ${{ inputs.video-record }}
@@ -124,6 +129,6 @@ runs:
       run: ${{ inputs.run }}
 
     - name: Stop QEMU
-      uses: ./stop/
+      uses: ./qemu-kvm-action/stop/
       with:
         run-id: ${{ steps.main.outputs.run-id }}
