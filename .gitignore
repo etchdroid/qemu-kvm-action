@@ -100,3 +100,6 @@ __tests__/runner/*
 # IDE files
 .idea/
 *.code-workspace
+
+# Exclude symlink used as a workaround for GitHub Actions limitations
+/qemu-kvm-action
